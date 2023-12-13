@@ -20,4 +20,7 @@ public class LaptopConfiguration {
 
     @Bean
     public Memory memory() { return new Memory(8); }
+
+    @Bean
+    public GPU gpu() { return new GPU("GeForce RTX 4080"); }
 }

@@ -1,5 +1,6 @@
 package platform.codingnomads.co.ioc.examples.constructorinjection;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -8,6 +9,7 @@ public class Laptop {
     private Processor processor;
     private OS os;
     private Memory memory;
+    private GPU gpu;
 
     // these fields are being injected from the ApplicationContext
     // if a class contains only one constructor (as this one does), the use of @Autowired is optional
@@ -16,6 +18,11 @@ public class Laptop {
         this.processor = processor;
         this.os = os;
         this.memory = memory;
+    }
+
+    @Autowired
+    public void setGpu(GPU gpu) {
+        this.gpu = gpu;
     }
 
     public String printLaptopConfiguration() {
