@@ -16,6 +16,12 @@ public class SingletonDemo {
         SpringBean springBean2 = ctx.getBean(SpringBean.class);
         System.out.println("Hash code: " + springBean2.hashCode());
 
+        SecondBean secondBean1 = ctx.getBean(SecondBean.class);
+        System.out.println("Hash code: " + secondBean1.hashCode());
+
+        SecondBean secondBean2 = ctx.getBean(SecondBean.class);
+        System.out.println("Hash code: " + secondBean2.hashCode());
+
         ctx.close();
     }
 }

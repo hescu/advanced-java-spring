@@ -11,4 +11,7 @@ public class SingletonDemoConfig {
     public SpringBean springBean() {
         return new SpringBean();
     }
+
+    @Bean
+    public SecondBean secondBean() { return new SecondBean(); }
 }
