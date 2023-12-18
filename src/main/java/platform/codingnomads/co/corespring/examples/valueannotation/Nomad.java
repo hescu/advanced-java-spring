@@ -1,5 +1,6 @@
 package platform.codingnomads.co.corespring.examples.valueannotation;
 
+import lombok.ToString;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -7,11 +8,16 @@ import java.util.List;
 import java.util.Map;
 
 @Component
+@ToString
 public class Nomad {
 
     private String name;
 
     private Integer age;
+    @Value("${nomad.status: sober}")
+    private String status;
+    @Value("${nomad.gender: neutral}")
+    private String gender;
 
     public Nomad(@Value("${nomad.name}") String name, @Value("${nomad.age}") Integer age) {
         this.name = name;
