@@ -29,6 +29,5 @@ public class Book {
     private int pages;
 
     @ManyToMany(mappedBy = "books")
-    @NonNull
     private List<Author> authors;
 }
