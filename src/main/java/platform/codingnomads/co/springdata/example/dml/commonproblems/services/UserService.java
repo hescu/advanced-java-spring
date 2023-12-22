@@ -6,6 +6,7 @@ import platform.codingnomads.co.springdata.example.dml.commonproblems.models.Add
 import platform.codingnomads.co.springdata.example.dml.commonproblems.models.ContactCard;
 import platform.codingnomads.co.springdata.example.dml.commonproblems.models.User;
 import platform.codingnomads.co.springdata.example.dml.commonproblems.repositories.UserRepo;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserService {
@@ -13,6 +14,7 @@ public class UserService {
     @Autowired
     UserRepo userRepo;
 
+    @Transactional
     public void persistAFewUsers() {
 
         //set up an Address
@@ -52,7 +54,7 @@ public class UserService {
         //save new User
         userRepo.save(user);
     }
-
+    @Transactional(readOnly = true)
     public void querySomeData() {
 
         //find user by username
@@ -62,7 +64,7 @@ public class UserService {
         userRepo.findByAddress_id(1L).forEach(System.out::println);
 
         //find user by ID
-        System.out.println(userRepo.getOne(4L).toString());
+        System.out.println(userRepo.getReferenceById(3L));
 
         //find all users
         userRepo.findAll().forEach(System.out::println);
