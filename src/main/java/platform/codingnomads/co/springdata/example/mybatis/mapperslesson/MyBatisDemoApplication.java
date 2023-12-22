@@ -40,16 +40,41 @@ public class MyBatisDemoApplication {
             song2.setArtist_name("Gus Dapperton");
             song2.setSong_length(279);
 
+            Song song3 = new Song();
+            song3.setName("Heat Waves");
+            song3.setAlbum_name("Dreamland");
+            song3.setArtist_name("Glass Animals");
+            song3.setSong_length(237);
+
+            Song song4 = new Song();
+            song4.setName("Blinding Lights");
+            song4.setAlbum_name("After Hours");
+            song4.setArtist_name("The Weeknd");
+            song4.setSong_length(200);
+
+            Song song5 = new Song();
+            song5.setName("Levitating");
+            song5.setAlbum_name("Future Nostalgia");
+            song5.setArtist_name("Dua Lipa");
+            song5.setSong_length(203);
+
             songMapper.insertNewSong(song1);
             songMapper.insertNewSong(song2);
+            songMapper.insertNewSong(song3);
+            songMapper.insertNewSong(song4);
+            songMapper.insertNewSong(song5);
 
-            Song song3 = songMapper.getSongById(1L);
+            Song returnedSong = songMapper.getSongById(1L);
 
             ArrayList<Song> longSongs = songMapper.getSongsWithLengthGreaterThan(250);
+            ArrayList<Song> shortSongs = songMapper.getSongsWithLengthShorterThan(250);
+            ArrayList<Song> songsByName = songMapper.getSongsByName("Levitating");
 
             longSongs.forEach(System.out::println);
+            shortSongs.forEach(System.out::println);
+            songsByName.forEach(System.out::println);
 
-            System.out.println(song3.toString());
+            System.out.println(returnedSong.toString());
         };
     }
 }
