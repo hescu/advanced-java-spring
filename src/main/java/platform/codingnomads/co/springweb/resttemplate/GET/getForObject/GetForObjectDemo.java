@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
+import platform.codingnomads.co.springweb.resttemplate.GET.models.ExcuseTemplate;
 import platform.codingnomads.co.springweb.resttemplate.GET.models.QuoteTemplate;
 
 import java.util.Arrays;
@@ -36,6 +37,10 @@ public class GetForObjectDemo {
 //                            CodingNomadsTasksApiResponse.class);
 //
 //            System.out.println(response.toString());
+
+            ExcuseTemplate[] randomExcuse;
+            randomExcuse = restTemplate.getForObject("https://excuser-three.vercel.app/v1/excuse/3", ExcuseTemplate[].class);
+            System.out.println(Arrays.toString(randomExcuse));
 
         };
     }
