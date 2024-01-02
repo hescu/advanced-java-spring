@@ -3,6 +3,10 @@ package platform.codingnomads.co.springdata.lab.repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import platform.codingnomads.co.springdata.lab.models.Area;
 
-public interface AreaRepository extends JpaRepository<Area,Long> {
+import java.util.List;
 
+public interface AreaRepository extends JpaRepository<Area,Long> {
+    Area findByCode(String code);
+
+    List<Area> findAllByPointsOfInterest_typeIgnoreCase(String name);
 }
