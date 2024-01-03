@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 import platform.codingnomads.co.springweb.resttemplate.POST.models.ResponseObject;
 import platform.codingnomads.co.springweb.resttemplate.POST.models.Task;
+import platform.codingnomads.co.springweb.resttemplate.POST.models.User;
+import platform.codingnomads.co.springweb.resttemplate.POST.models.UserResponseObject;
 
 @SpringBootApplication
 public class PostForObjectMain {
@@ -23,19 +25,32 @@ public class PostForObjectMain {
     @Bean
     public CommandLineRunner run() throws Exception {
         return args -> {
-            Task newTask = Task.builder()
-                    .name("learn how to use postForObject() - video demo")
-                    .description("get comfortable using the RestTemplate postForObject() method")
-                    //use a valid user id
-                    .userId(380)
-                    .completed(false)
+//            Task newTask = Task.builder()
+//                    .name("learn how to use postForObject() - video demo")
+//                    .description("get comfortable using the RestTemplate postForObject() method")
+//                    //use a valid user id
+//                    .userId(380)
+//                    .completed(false)
+//                    .build();
+//
+//            ResponseObject taskReturnedByServerAfterPost = restTemplate
+//                    .postForObject("http://demo.codingnomads.co:8080/tasks_api/tasks", newTask, ResponseObject.class);
+//
+//            if (taskReturnedByServerAfterPost != null) {
+//                System.out.println(taskReturnedByServerAfterPost.toString());
+//            }
+
+            User newUser = User.builder()
+                    .email("batman@gotham.com")
+                    .first_name("Bruce")
+                    .last_name("Wayne")
                     .build();
 
-            ResponseObject taskReturnedByServerAfterPost = restTemplate
-                    .postForObject("http://demo.codingnomads.co:8080/tasks_api/tasks", newTask, ResponseObject.class);
+            UserResponseObject userReturnedByServerAfterPost = restTemplate
+                    .postForObject("http://demo.codingnomads.co:8080/tasks_api/users", newUser, UserResponseObject.class);
 
-            if (taskReturnedByServerAfterPost != null) {
-                System.out.println(taskReturnedByServerAfterPost.toString());
+            if (userReturnedByServerAfterPost != null) {
+                System.out.println(userReturnedByServerAfterPost);
             }
         };
     }
