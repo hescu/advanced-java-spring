@@ -58,4 +58,14 @@ public class TaskController {
         taskRepository.deleteById(id);
         return ResponseEntity.ok().body(id);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Task> updateTask(@RequestBody Task task) throws URISyntaxException {
+        if (StringUtils.isEmpty(task.getName()) || task.getId() != null) {
+            throw new IllegalStateException();
+        }
+        final Task savedTask = taskRepository.save(task);
+
+        return ResponseEntity.ok().body(savedTask);
+    }
 }
