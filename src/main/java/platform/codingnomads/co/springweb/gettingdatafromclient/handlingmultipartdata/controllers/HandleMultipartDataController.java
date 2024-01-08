@@ -16,6 +16,7 @@ import platform.codingnomads.co.springweb.gettingdatafromclient.handlingmultipar
 
 import java.io.IOException;
 import java.nio.file.NoSuchFileException;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -94,6 +95,28 @@ public class HandleMultipartDataController {
                         String.format("attachment; filename=\"%s\"", databaseFile.getFileName()))
                 .body(new ByteArrayResource(databaseFile.getData()));
     }
+
+    @GetMapping("/multiplefiles")
+    public ResponseEntity<?> searchFilesByName(@RequestParam(name = "name") String name) {
+
+        final Optional<List<DatabaseFile>> optional = Optional.ofNullable(fileRepository.findByName(name));
+
+        if (optional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Files not found with name: " + name);
+        }
+
+        List<DatabaseFile> databaseFileList = optional.get();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=files.json");
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(databaseFileList);
+    }
+
+
 
     //@PutMapping("/uploadSingleFile/{id}")
     @PutMapping("/{id}")
