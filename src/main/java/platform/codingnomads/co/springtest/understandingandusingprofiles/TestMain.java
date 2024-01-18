@@ -3,6 +3,8 @@ package platform.codingnomads.co.springtest.understandingandusingprofiles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 @SpringBootApplication
@@ -30,5 +32,12 @@ public class TestMain implements CommandLineRunner {
                 .intensity(4)
                 .sugar(true)
                 .build());
+    }
+
+    @Bean
+    @Profile("learn_by_doing")
+    public String printStringToConsole() {
+        System.out.println("Brought to you by profile: learn_by_doing");
+        return "Message printed to console";
     }
 }
