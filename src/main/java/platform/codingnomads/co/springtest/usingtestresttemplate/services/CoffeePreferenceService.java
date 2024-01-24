@@ -14,4 +14,8 @@ public class CoffeePreferenceService {
     public CoffeePreference insertNewCoffeePreference(CoffeePreference coffeePreference) {
         return repo.save(coffeePreference);
     }
+
+    public CoffeePreference getCoffeePreferenceById(Long id) {
+        return repo.getReferenceById(id);
+    }
 }
