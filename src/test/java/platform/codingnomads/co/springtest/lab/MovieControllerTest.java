@@ -99,4 +99,23 @@ public class MovieControllerTest {
                 .andExpect(content().contentType("application/json"))
                 .andExpect(jsonPath("$", hasSize(4)));
     }
+
+    @Test
+    public void testGetMoviesWithMinimumRatingSuccess() throws Exception {
+        mockMvc.perform(get("/minimum-rating/1.0"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$", hasSize(2)));
+    }
+
+    @Test
+    public void testGetMoviesWithMinimumRatingFailure() throws Exception {
+        movieRepo.deleteAll();
+
+        mockMvc.perform(get("/all"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(0)));
+    }
 }
