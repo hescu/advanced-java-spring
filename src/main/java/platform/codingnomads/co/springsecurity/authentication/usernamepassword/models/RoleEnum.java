@@ -3,6 +3,6 @@ package platform.codingnomads.co.springsecurity.authentication.usernamepassword.
 public enum RoleEnum {
     ROLE_USER,
     ROLE_ADMIN,
-    ROLE_SUPERU,
+    ROLE_SUPERUSER,
     UPDATER
 }

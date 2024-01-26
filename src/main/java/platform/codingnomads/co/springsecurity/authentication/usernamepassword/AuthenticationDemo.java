@@ -33,6 +33,7 @@ public class AuthenticationDemo implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         Authority userAuth = Authority.builder().authority(RoleEnum.ROLE_USER).build();
+
         if (authorityRepo.findAll().isEmpty()) {
             authorityRepo.save(userAuth);
         }

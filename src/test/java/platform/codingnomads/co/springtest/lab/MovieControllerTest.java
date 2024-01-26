@@ -1,13 +1,16 @@
 package platform.codingnomads.co.springtest.lab;
 
+import org.apache.http.client.HttpResponseException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.web.server.ResponseStatusException;
 import platform.codingnomads.co.springtest.TestUtil;
 import platform.codingnomads.co.springtest.lab.entity.Movie;
 import platform.codingnomads.co.springtest.lab.repository.MovieRepository;
@@ -18,10 +21,10 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.mockito.Mockito.when;
 
 @SpringBootTest(classes = SpringTestLab.class)
 @AutoConfigureMockMvc
@@ -38,10 +41,24 @@ public class MovieControllerTest {
 
     @Test
     public void testGetAllMoviesSuccess() throws Exception {
+        when(movieService.getAllMovies()).thenReturn(new ArrayList<>());
+
         mockMvc.perform(get("/all"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$", hasSize(2)));
+                .andExpect(jsonPath("$", hasSize(0)));
+
+        verify(movieService, times(1)).getAllMovies();
+        verifyNoMoreInteractions(movieService);
+
+    }
+
+    @Test
+    public void testGetAllMoviesNotFound() throws Exception {
+        when(movieService.getAllMovies()).thenThrow(new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        mockMvc.perform(get("/all"))
+                .andExpect(status().isNotFound());
     }
 
     @Test
@@ -73,16 +90,6 @@ public class MovieControllerTest {
     }
 
     @Test
-    public void testGetAllMoviesFailure() throws Exception {
-        movieRepo.deleteAll();
-
-        mockMvc.perform(get("/all"))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(0)));
-    }
-
-    @Test
     public void testGetAllMoviesSuccessMockService() throws Exception {
         List<Movie> mockMovieList = new ArrayList<>();
         mockMovieList.add(Movie.builder().id(1L).name("Batman Returns").rating(8.7).build());
@@ -110,11 +117,9 @@ public class MovieControllerTest {
 
     @Test
     public void testGetMoviesWithMinimumRatingFailure() throws Exception {
-        movieRepo.deleteAll();
+        when(movieService.getAllMovies()).thenThrow(new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        mockMvc.perform(get("/all"))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(0)));
+        mockMvc.perform(get("/minimum-rating/1.0"))
+                .andExpect(status().isNotFound());
     }
 }
