@@ -12,7 +12,6 @@ import platform.codingnomads.co.springtest.TestUtil;
 import platform.codingnomads.co.springtest.lab.entity.Movie;
 import platform.codingnomads.co.springtest.lab.repository.MovieRepository;
 import platform.codingnomads.co.springtest.lab.service.MovieService;
-import platform.codingnomads.co.springtest.mockingmethods.models.Recipe;
 
 import java.util.ArrayList;
 import java.util.List;
