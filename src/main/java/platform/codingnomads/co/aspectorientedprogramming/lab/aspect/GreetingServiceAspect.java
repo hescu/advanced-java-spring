@@ -4,6 +4,7 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
 @Aspect
@@ -17,5 +18,14 @@ public class GreetingServiceAspect {
     @After("execution(* platform.codingnomads.co.aspectorientedprogramming.lab.service.greeting())")
     public void afterGreeting(JoinPoint joinPoint) {
         System.out.println("After the execution of the greeting() method.");
+    }
+
+    // Pointcut for the shouting() method
+    @Pointcut("execution(* platform.codingnomads.co.aspectorientedprogramming.lab.service.YourServiceClass.shouting())")
+    public void shoutingMethod() { }
+
+    @Before("shoutingMethod()")
+    public void beforeShouting(JoinPoint joinPoint) {
+        System.out.println("Before shouting Method: " + joinPoint.getSignature().getName());
     }
 }
