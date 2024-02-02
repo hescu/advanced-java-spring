@@ -1,6 +1,7 @@
 package platform.codingnomads.co.aspectorientedprogramming.lab.service;
 
 import org.springframework.stereotype.Service;
+import platform.codingnomads.co.aspectorientedprogramming.lab.aspect.Printable;
 
 @Service
 public class GreetingService {
@@ -9,5 +10,6 @@ public class GreetingService {
         return "Hello Spring Developer!";
     }
 
+    @Printable
     public String shouting() { return "WAAAAAAAAAAGH!!!!! ORKS ARE DA BEST!!!!!"; }
 }

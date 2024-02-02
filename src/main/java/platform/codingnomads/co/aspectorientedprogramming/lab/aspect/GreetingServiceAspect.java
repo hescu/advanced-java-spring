@@ -10,18 +10,18 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class GreetingServiceAspect {
-    @Before("execution(* platform.codingnomads.co.aspectorientedprogramming.lab.service.greeting())")
+    @Before("execution(* platform.codingnomads.co.aspectorientedprogramming.lab.service.GreetingService.greeting())")
     public void beforeGreeting(JoinPoint joinPoint) {
         System.out.println("Before the execution of the greeting() method.");
     }
 
-    @After("execution(* platform.codingnomads.co.aspectorientedprogramming.lab.service.greeting())")
+    @After("execution(* platform.codingnomads.co.aspectorientedprogramming.lab.service.GreetingService.greeting())")
     public void afterGreeting(JoinPoint joinPoint) {
         System.out.println("After the execution of the greeting() method.");
     }
 
     // Pointcut for the shouting() method
-    @Pointcut("execution(* platform.codingnomads.co.aspectorientedprogramming.lab.service.YourServiceClass.shouting())")
+    @Pointcut("execution(* platform.codingnomads.co.aspectorientedprogramming.lab.service.GreetingService.shouting())")
     public void shoutingMethod() { }
 
     @Before("shoutingMethod()")
